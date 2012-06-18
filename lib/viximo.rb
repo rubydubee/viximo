@@ -1,9 +1,7 @@
 require 'rubygems'
 require "net/https"
-require 'pp'
 require "uri"
 require 'digest/hmac'
-require 'json'
 
 class Viximo
   def initialize(api_key, api_secret)
@@ -13,7 +11,7 @@ class Viximo
   end
   
   #params is a hash with request parameters we want to send and their values
-  def send_message(params)
+  def send_message(params, sender_id)
     uri = URI.parse(@uri)
     http = Net::HTTP.new(uri.host, uri.port)
     http.use_ssl = true
@@ -28,10 +26,7 @@ class Viximo
     sig = generate_signature(params)
     parameters += "&signature=#{sig}"
 
-    puts parameters
-
-    response = http.post("/api/2/apps/#{@key}/users/127/messages.json", "#{parameters}")
-    pp response.body
+    response = http.post("/api/2/apps/#{@key}/users/#{sender_id}/messages.json", "#{parameters}")
     return response.body
   end
 
@@ -49,10 +44,7 @@ class Viximo
     end
     parameters += "&signature=#{generate_signature(params)}"
 
-    puts parameters
     response = http.post("/api/2/apps/#{@key}/broadcast_notifications.json", "#{parameters}")
-    pp response
-    pp response.body
     return response.body
   end
 
