@@ -25,8 +25,9 @@ class Viximo
     end
     sig = generate_signature(params)
     parameters += "&signature=#{sig}"
-
+    puts parameters
     response = http.post("/api/2/apps/#{@key}/users/#{sender_id}/messages.json", "#{parameters}")
+    puts response
     return response.body
   end
 
