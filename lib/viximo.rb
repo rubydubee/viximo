@@ -1,7 +1,7 @@
 require 'rubygems'
 require "net/https"
 require "uri"
-#require 'digest/hmac'
+require 'openssl'
 
 class Viximo
   def initialize(api_key, api_secret)
@@ -53,7 +53,7 @@ class Viximo
     params.keys.sort.each do |key|
       value_string += params[key].to_s
     end
-    signature = Digest::HMAC.new(@secret,Digest::SHA256).hexdigest(value_string)
+    signature = OpenSSL::HMAC.hexdigest('sha256',@secret,value_string)
     return signature
   end
 end
