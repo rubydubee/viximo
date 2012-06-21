@@ -1,7 +1,7 @@
 require 'rubygems'
 require "net/https"
 require "uri"
-require 'digest/hmac'
+#require 'digest/hmac'
 
 class Viximo
   def initialize(api_key, api_secret)
