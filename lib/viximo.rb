@@ -11,7 +11,8 @@ class Viximo
   end
   
   #params is a hash with request parameters we want to send and their values
-  def send_message(params, sender_id)
+  #updating to "message from app" api
+  def send_message(params)
     uri = URI.parse(@uri)
     http = Net::HTTP.new(uri.host, uri.port)
     http.use_ssl = true
@@ -26,7 +27,7 @@ class Viximo
     sig = generate_signature(params)
     parameters += "&signature=#{sig}"
     puts parameters 
-    response = http.post("/api/2/apps/#{@key}/users/#{sender_id}/messages.json", "#{URI.escape(parameters)}")
+    response = http.post("/api/2/apps/#{@key}/messages.json", "#{URI.escape(parameters)}")
     puts response
     return response.body
   end

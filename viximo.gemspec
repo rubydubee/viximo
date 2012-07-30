@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name        = 'viximo'
-  s.version     = '0.0.5'
+  s.version     = '0.0.6'
   s.date        = '2012-06-26'
   s.summary     = "Viximo API gem"
   s.description = "Simple gem for accessing Viximo push notifications API"
